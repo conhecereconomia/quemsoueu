@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Quem Sou Eu? · Pensadores Econômicos</title>
+<style>
+:root{
+  --cor:#8e3fd6; --cor-esc:#6d28b0; --cor-cl:#f1e4ff; --fundo-a:#ffeccf;
+  --tinta:#1d2433; --tinta2:#5b6579; --papel:#fffdf8; --linha:#e8e1d2;
+  --fundo-b:#f5efe3;
+  --ok:#1f9d63; --ok-cl:#dcf5e8; --erro:#e04848; --erro-cl:#fde4e4; --aviso:#f2a516;
+  --r:18px;
+  --sombra:0 1px 0 rgba(29,36,51,.05),0 12px 32px -14px rgba(29,36,51,.28);
+  --fonte:"Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif;
+  --titulo:"Trebuchet MS","Segoe UI",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{font-family:var(--fonte);color:var(--tinta);background:radial-gradient(1100px 600px at 8% -10%,var(--fundo-a) 0,transparent 60%),radial-gradient(900px 500px at 110% 110%,var(--cor-cl) 0,transparent 60%),var(--fundo-b);background-attachment:fixed;line-height:1.4;-webkit-font-smoothing:antialiased}
+button,input,select,textarea{font:inherit;color:inherit}
+img{max-width:100%}
+.oculto{display:none!important}
+.mp-top{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 16px;background:rgba(255,253,248,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--linha)}
+.mp-marca{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--tinta);min-width:0}
+.mp-logo{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;background:var(--cor);color:#fff;font-size:20px;box-shadow:inset 0 -3px 0 rgba(0,0,0,.18);flex:none}
+.mp-marca b{display:block;font:800 .72rem/1 var(--fonte);letter-spacing:.12em;text-transform:uppercase;color:var(--tinta2)}
+.mp-marca small{display:block;font:800 1.05rem/1.2 var(--titulo);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mp-acoes{display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.mp-acoes button,.mp-acoes select{height:36px;border:1px solid var(--linha);background:#fff;border-radius:10px;padding:0 10px;cursor:pointer;font-weight:600;font-size:.88rem;display:inline-flex;align-items:center;gap:6px}
+.mp-acoes button:hover,.mp-acoes select:hover{border-color:var(--cor)}
+.mp-acoes button.off{opacity:.45;text-decoration:line-through}
+@media (max-width:820px){.mp-acoes .rot{display:none}}
+.mp-main{max-width:1240px;margin:0 auto;padding:20px 16px 40px}
+.tela{animation:surgir .35s ease}
+@keyframes surgir{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.card{background:var(--papel);border:1px solid var(--linha);border-radius:var(--r);box-shadow:var(--sombra);padding:22px}
+.capa{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:20px;align-items:start}
+@media (max-width:900px){.capa{grid-template-columns:1fr}}
+.capa h1{font:900 clamp(2rem,4.4vw,3.3rem)/1.02 var(--titulo);margin:0 0 6px;letter-spacing:-.01em}
+.capa h1 em{font-style:normal;color:var(--cor)}
+.capa .lead{color:var(--tinta2);font-size:1.05rem;margin:0 0 18px;max-width:60ch}
+.rotulo{display:block;font:800 .72rem var(--fonte);letter-spacing:.1em;text-transform:uppercase;color:var(--tinta2);margin:16px 0 8px}
+.passos{margin:0;padding-left:1.2em}.passos li{margin:6px 0}
+.linha-botoes{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:18px}
+.selo{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:700;color:var(--tinta2);background:#fff;border:1px solid var(--linha);border-radius:99px;padding:4px 10px}
+.btn{font-weight:700;font-size:1rem;border:0;border-radius:14px;padding:.72em 1.2em;background:#fff;color:var(--tinta);box-shadow:inset 0 -4px 0 rgba(0,0,0,.12),0 2px 8px rgba(29,36,51,.1);cursor:pointer;transition:transform .08s,filter .15s,opacity .15s;display:inline-flex;align-items:center;justify-content:center;gap:.5em;line-height:1.15;border:1px solid rgba(0,0,0,.06)}
+.btn:hover{filter:brightness(1.05)}
+.btn:active{transform:translateY(2px);box-shadow:inset 0 -2px 0 rgba(0,0,0,.12)}
+.btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.btn-cor{background:var(--cor);color:#fff}
+.btn-ok{background:var(--ok);color:#fff}
+.btn-erro{background:var(--erro);color:#fff}
+.btn-aviso{background:var(--aviso);color:#2b1d00}
+.btn-escuro{background:var(--tinta);color:#fff}
+.btn-grande{font-size:1.25rem;padding:.8em 1.6em;border-radius:16px}
+.btn-peq{font-size:.85rem;padding:.45em .8em;border-radius:10px;box-shadow:inset 0 -2px 0 rgba(0,0,0,.1)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:2px solid var(--linha);background:#fff;border-radius:12px;padding:.5em .9em;font-weight:700;cursor:pointer;transition:.12s;display:inline-flex;flex-direction:column;align-items:flex-start;line-height:1.15}
+.chip small{font-weight:600;font-size:.72rem;color:var(--tinta2)}
+.chip:hover{border-color:var(--cor)}
+.chip.on{background:var(--cor);border-color:var(--cor);color:#fff}
+.chip.on small{color:rgba(255,255,255,.85)}
+.campo,.mp-area{width:100%;border:2px solid var(--linha);border-radius:12px;padding:.6em .8em;background:#fff;outline:none;transition:border .12s}
+.campo:focus,.mp-area:focus{border-color:var(--cor)}
+.mp-eqnomes{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin-top:10px}
+.mp-eqnome{display:flex;align-items:center;gap:8px;background:#fff;border:2px solid var(--linha);border-radius:12px;padding:4px 8px}
+.mp-eqnome i{width:14px;height:14px;border-radius:50%;flex:none}
+.mp-eqnome input{border:0;outline:0;width:100%;padding:6px 0;font-weight:700;background:transparent}
+.placar{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.eq{--c:#888;position:relative;min-width:150px;flex:1 1 150px;max-width:260px;background:#fff;border-radius:16px;padding:10px 14px;border:3px solid transparent;box-shadow:var(--sombra);display:flex;align-items:center;gap:10px;transition:.25s}
+.eq::before{content:"";width:12px;align-self:stretch;border-radius:8px;background:var(--c);flex:none}
+.eq .nome{font-weight:800;font-size:1rem;line-height:1.1;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.eq .pts{font:900 1.8rem/1 var(--titulo);color:var(--c)}
+.eq .aj{display:flex;flex-direction:column;gap:2px}
+.eq .aj button{border:0;background:#f1ede4;border-radius:6px;width:22px;height:18px;line-height:1;cursor:pointer;font-weight:900;font-size:.8rem;padding:0}
+.eq.vez{border-color:var(--c);transform:translateY(-3px) scale(1.03);box-shadow:0 0 0 5px color-mix(in srgb,var(--c) 22%,transparent),var(--sombra)}
+.eq.vez .nome::after{content:" ◀";color:var(--c)}
+.mesa{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(260px,.7fr);gap:18px;margin-top:14px;align-items:start}
+@media (max-width:900px){.mesa{grid-template-columns:1fr}}
+.misterio{background:linear-gradient(160deg,#3b1764,#22093f);color:#fff;border-radius:26px;padding:24px;box-shadow:var(--sombra);min-height:420px;position:relative}
+.misterio h2{margin:0 0 4px;font:900 clamp(1.8rem,4vw,2.8rem) var(--titulo)}
+.misterio .vale{display:inline-block;background:#ffd166;color:#2a1a00;border-radius:99px;padding:4px 14px;font:900 1.1rem var(--titulo)}
+.pistas{list-style:none;padding:0;margin:18px 0 0;display:grid;gap:10px}
+.pistas li{background:rgba(255,255,255,.1);border:2px dashed rgba(255,255,255,.25);border-radius:16px;padding:14px 16px;font:700 clamp(1.05rem,2vw,1.45rem)/1.3 var(--fonte);display:flex;gap:12px;align-items:flex-start}
+.pistas li b{flex:none;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:#ffd166;color:#2a1a00;font:900 1rem var(--titulo)}
+.pistas li.fechada{color:transparent;text-shadow:none;background:rgba(255,255,255,.04)}
+.pistas li.fechada b{background:rgba(255,255,255,.2);color:#fff}
+.pistas li.nova{animation:pula .45s;border-style:solid;border-color:#ffd166}
+.revela{text-align:center;margin-top:16px;animation:pula .5s}
+.revela .r{font:900 clamp(2rem,5vw,3.4rem) var(--titulo);color:#ffd166}
+.interrog{position:absolute;right:18px;top:12px;font:900 6rem var(--titulo);opacity:.12}
+.acoesQ{display:flex;flex-direction:column;gap:10px}
+.dar{--c:#888;background:var(--c);color:#fff;justify-content:space-between}
+.prog{font-weight:800;color:var(--tinta2)}
+@keyframes pula{from{transform:scale(.9);opacity:0}}
+.mp-editor{position:fixed;inset:0;z-index:90;background:var(--fundo-b);overflow:auto;display:flex;flex-direction:column}
+.mp-ed-top{position:sticky;top:0;z-index:2;background:var(--papel);border-bottom:1px solid var(--linha);padding:12px 16px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.mp-ed-top h2{margin:0 auto 0 0;font:900 1.35rem var(--titulo)}
+.mp-ed-corpo{max-width:1180px;width:100%;margin:0 auto;padding:16px}
+.mp-ed-temas{display:flex;gap:8px;flex-wrap:wrap;align-items:center;background:var(--papel);border:1px solid var(--linha);border-radius:16px;padding:12px}
+.mp-ed-temas select{min-width:220px}
+.mp-ed-ajuda{background:#fffbe6;border:1px solid #f3e2a0;border-radius:14px;padding:10px 14px;margin:12px 0;font-size:.92rem}
+.mp-ed-lista{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.mp-ed-item{display:grid;grid-template-columns:34px 1fr auto;gap:8px;align-items:start;background:var(--papel);border:1px solid var(--linha);border-radius:14px;padding:10px}
+.mp-ed-item .num{font:900 1rem var(--titulo);color:var(--tinta2);padding-top:10px;text-align:center}
+.mp-ed-item label{display:block;font-size:.7rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--tinta2);margin-bottom:3px}
+.mp-ed-item .campo{padding:.5em .65em;border-radius:10px}
+.mp-ed-item textarea.campo{min-height:42px;resize:vertical}
+.mp-ed-acts{display:flex;gap:4px;padding-top:18px}
+.mp-ed-acts button{width:32px;height:32px;border:1px solid var(--linha);background:#fff;border-radius:9px;cursor:pointer}
+.mp-ed-acts button:hover{border-color:var(--cor)}
+.mp-ed-rodape{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}
+.mp-toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:300;background:var(--tinta);color:#fff;padding:12px 20px;border-radius:14px;font-weight:700;box-shadow:0 10px 30px rgba(0,0,0,.3);animation:toast 2.6s forwards;max-width:calc(100vw - 32px);text-align:center}
+@keyframes toast{0%{opacity:0;transform:translate(-50%,20px)}10%,85%{opacity:1;transform:translate(-50%,0)}100%{opacity:0;transform:translate(-50%,10px)}}
+.mp-anuncio{position:fixed;inset:0;z-index:150;display:grid;place-items:center;pointer-events:none}
+.mp-anuncio div{font:900 clamp(2rem,6vw,4.4rem)/1 var(--titulo);color:#fff;background:var(--c,var(--cor));padding:.4em .9em;border-radius:24px;box-shadow:0 20px 60px rgba(0,0,0,.35);animation:anuncio 1.5s ease forwards;text-align:center}
+@keyframes anuncio{0%{transform:scale(.5) rotate(-4deg);opacity:0}15%{transform:scale(1.05) rotate(1deg);opacity:1}25%{transform:scale(1)}80%{opacity:1}100%{opacity:0;transform:scale(1.1)}}
+.mp-veu{position:fixed;inset:0;z-index:100;background:rgba(20,24,34,.55);display:grid;place-items:center;padding:16px}
+.mp-modal{background:var(--papel);border-radius:22px;box-shadow:0 30px 80px -20px rgba(0,0,0,.5);width:min(640px,100%);max-height:calc(100vh - 32px);overflow:auto;padding:24px}
+.mp-modal h2{font:900 1.6rem/1.15 var(--titulo);margin:0 0 10px}
+.mp-modal .mp-mbotoes{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;margin-top:20px}
+#mp-print{display:none}
+@media print{
+  @page{margin:12mm}
+  body{background:#fff!important}
+  body>*:not(#mp-print){display:none!important}
+  #mp-print{display:block!important;color:#000}
+  .quebra{page-break-after:always;break-after:page}
+}
+</style>
+</head>
+<body>
+
+<header class="mp-top">
+  <a class="mp-marca" href="#">
+    <span class="mp-logo">💼</span>
+    <span><b>Maleta do Professor</b><small>Quem Sou Eu? · Pensadores Econômicos</small></span>
+  </a>
+  <div class="mp-acoes">
+    <button id="btnEditar" title="Editar banco de perguntas">✏️ <span class="rot">Editar</span></button>
+    <button id="btnImprimir" title="Imprimir cartas">🖨️ <span class="rot">Imprimir</span></button>
+    <button id="btnSom" title="Ligar/desligar som">🔊 <span class="rot">Som</span></button>
+  </div>
+</header>
+
+<main class="mp-main">
+  <section id="capa" class="tela">
+    <div class="capa">
+      <div class="card">
+        <h1>Quem <em>sou eu?</em> · Pensadores Econômicos</h1>
+        <p class="lead">Jogo para turmas de graduação em Ciências Econômicas. Cada rodada traz um pensador — de Adam Smith a Maria da Conceição Tavares — e a equipe precisa descobrir quem é a partir de pistas progressivas.</p>
+
+        <span class="rotulo">Número de equipes</span>
+        <div id="qtdEq" class="chips"></div>
+
+        <span class="rotulo">Nomes e cores</span>
+        <div id="cfgEq"></div>
+
+        <span class="rotulo">Escolha o tema</span>
+        <div id="temas"></div>
+
+        <span class="rotulo">Quantas cartas por partida?</span>
+        <div id="qtd"></div>
+
+        <div class="linha-botoes">
+          <button class="btn btn-cor btn-grande" id="comecar">▶ Começar</button>
+          <button class="btn" id="editarCapa">✏️ Editar banco de cartas</button>
+        </div>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0">Como funciona</h3>
+        <ol class="passos">
+          <li>Divida a turma em equipes (2 a 8). Cada equipe escolhe um nome e uma cor.</li>
+          <li>Em cada rodada, aparece um pensador secreto. A <b>1ª pista já vem revelada</b> e vale <b>10 pontos</b>.</li>
+          <li>A equipe da vez tenta adivinhar. Se pedir mais pistas, o valor cai (8, 6, 4, 2).</li>
+          <li>Acertou? Marca os pontos. Errou? A vez passa para a próxima equipe e uma nova pista é revelada.</li>
+          <li>Quem acumular mais pontos ao final das cartas escolhidas vence.</li>
+        </ol>
+        <div class="linha-botoes">
+          <span class="selo">📴 Funciona offline</span>
+          <span class="selo">✏️ Banco editável</span>
+          <span class="selo">📽️ Ideal para projetor</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="jogo" class="tela oculto">
+    <div id="placar" class="placar"></div>
+    <div class="mesa">
+      <div class="misterio">
+        <span class="interrog">?</span>
+        <h2>Quem sou eu?</h2>
+        <span class="vale" id="vale">Vale 10 pontos</span>
+        <ol class="pistas" id="pistas"></ol>
+        <div id="revela"></div>
+      </div>
+      <div class="card acoesQ" id="acoes"></div>
+    </div>
+  </section>
+</main>
+
+<div id="editor" class="mp-editor oculto">
+  <div class="mp-ed-top">
+    <h2>Editor do banco de cartas</h2>
+    <button class="btn btn-peq" id="edSalvar">💾 Salvar</button>
+    <button class="btn btn-peq" id="edExportar">⬇️ Exportar</button>
+    <button class="btn btn-peq" id="edImportar">⬆️ Importar</button>
+    <button class="btn btn-peq" id="edFechar">✖️ Fechar</button>
+  </div>
+  <div class="mp-ed-corpo">
+    <div class="mp-ed-temas">
+      <label>Tema: <select id="edTema"></select></label>
+      <button class="btn btn-peq" id="edNovoTema">➕ Novo tema</button>
+      <button class="btn btn-peq" id="edNovaCarta">➕ Nova carta</button>
+    </div>
+    <div class="mp-ed-ajuda">
+      Cada carta tem: o <b>nome do pensador</b> (resposta), <b>4 pistas</b> (da mais difícil à mais fácil) e a <b>corrente/obra</b> de referência (opcional, exibida ao revelar).
+    </div>
+    <div id="edLista" class="mp-ed-lista"></div>
+    <div class="mp-ed-rodape">
+      <button class="btn btn-peq" id="edResetar">♻️ Restaurar banco de exemplo</button>
+      <input type="file" id="edFile" accept=".json" class="oculto">
+    </div>
+  </div>
+</div>
+
+<div id="mp-print"></div>
+
+<script>
+/* =====================================================================
+   BANCO DE DADOS · PENSADORES ECONÔMICOS
+   ===================================================================== */
+const BANCO_EXEMPLO = {
+  temas: [
+    "Economistas Clássicos",
+    "Escola Neoclássica",
+    "Macroeconomia Keynesiana",
+    "Economia Institucionalista",
+    "Desenvolvimento e Economia Política",
+    "Pensamento Econômico Brasileiro",
+    "Prêmios Nobel e Contemporâneos"
+  ],
+  cartas: [
+    // ---- CLÁSSICOS ----
+    { tema:"Economistas Clássicos", nome:"Adam Smith", pistas:[
+        "Sou considerado o pai da economia moderna.",
+        "Escrevi 'A Riqueza das Nações' em 1776.",
+        "Popularizei a metáfora da 'mão invisível'.",
+        "Defendi a divisão do trabalho e o livre mercado."
+      ], ref:"Escola Clássica · A Riqueza das Nações" },
+    { tema:"Economistas Clássicos", nome:"David Ricardo", pistas:[
+        "Sou um economista clássico inglês, de origem judaico-portuguesa.",
+        "Formulei a teoria das vantagens comparativas no comércio internacional.",
+        "Elaborei a teoria do valor-trabalho e a lei dos rendimentos decrescentes.",
+        "Sou autor de 'Princípios de Economia Política e Tributação'."
+      ], ref:"Escola Clássica · Princípios de Economia Política" },
+    { tema:"Economistas Clássicos", nome:"Alfred Marshall", pistas:[
+        "Sou o principal sistematizador da escola neoclássica britânica.",
+        "Introduzi o conceito de 'equilíbrio parcial' e as curvas de oferta e demanda.",
+        "Escrevi o tratado 'Princípios de Economia', de 1890.",
+        "Sou associado à Universidade de Cambridge."
+      ], ref:"Escola Neoclássica · Princípios de Economia" },
+    { tema:"Economistas Clássicos", nome:"Karl Marx", pistas:[
+        "Sou autor de 'O Capital' e coautor do 'Manifesto Comunista'.",
+        "Elaborei a teoria da mais-valia e a crítica à economia política.",
+        "Sou associado ao materialismo histórico e à luta de classes.",
+        "Minha obra inspirou correntes socialistas e comunistas."
+      ], ref:"Economia Política Marxista · O Capital" },
+
+    // ---- NEOCLÁSSICOS ----
+    { tema:"Escola Neoclássica", nome:"Léon Walras", pistas:[
+        "Sou um economista francês, considerado o pai do equilíbrio geral.",
+        "Formulei a teoria do equilíbrio geral com o mercado de leiloeiro.",
+        "Sou autor de 'Elementos de Economia Política Pura'.",
+        "Sou associado à Escola de Lausanne, junto com Pareto."
+      ], ref:"Equilíbrio Geral · Escola de Lausanne" },
+    { tema:"Escola Neoclássica", nome:"Vilfredo Pareto", pistas:[
+        "Sou um economista e sociólogo italiano, sucessor de Walras em Lausanne.",
+        "Formulei o conceito de 'ótimo de Pareto' (eficiência alocativa).",
+        "Introduzi a 'lei de Pareto' sobre distribuição de renda (regra 80/20).",
+        "Sou autor de 'Manual de Economia Política'."
+      ], ref:"Equilíbrio Geral · Ótimo de Pareto" },
+    { tema:"Escola Neoclássica", nome:"Irving Fisher", pistas:[
+        "Sou um economista neoclássico norte-americano, também matemático.",
+        "Formulei a 'equação de Fisher' que relaciona juros nominais, reais e inflação.",
+        "Sou autor de 'A Teoria do Juro' e 'A Ilusão do Dinheiro'.",
+        "Minha teoria quantitativa da moeda influenciou a macroeconomia."
+      ], ref:"Escola Neoclássica · A Teoria do Juro" },
+    { tema:"Escola Neoclássica", nome:"Robert Solow", pistas:[
+        "Sou um economista norte-americano, ganhador do Nobel de 1987.",
+        "Formulei um modelo de crescimento econômico que leva meu nome.",
+        "Introduzi o conceito de 'resíduo de Solow' (produtividade total dos fatores).",
+        "Sou professor emérito do MIT."
+      ], ref:"Crescimento Econômico · Modelo de Solow" },
+
+    // ---- KEYNESIANOS ----
+    { tema:"Macroeconomia Keynesiana", nome:"John Maynard Keynes", pistas:[
+        "Sou o economista britânico mais influente do século XX.",
+        "Escrevi 'A Teoria Geral do Emprego, do Juro e da Moeda' em 1936.",
+        "Defendi a intervenção do Estado para combater o desemprego.",
+        "Sou o pai da macroeconomia moderna."
+      ], ref:"Macroeconomia Keynesiana · Teoria Geral" },
+    { tema:"Macroeconomia Keynesiana", nome:"Joan Robinson", pistas:[
+        "Sou uma economista britânica, ligada à Universidade de Cambridge.",
+        "Fui uma das principais divulgadoras e críticas do keynesianismo.",
+        "Sou associada à escola pós-keynesiana e à teoria do crescimento.",
+        "Escrevi 'A Acumulação de Capital' e 'Economia da Concorrência Imperfeita'."
+      ], ref:"Pós-Keynesianismo · Acumulação de Capital" },
+    { tema:"Macroeconomia Keynesiana", nome:"John Kenneth Galbraith", pistas:[
+        "Sou um economista canadense-americano, ligado à tradição institucionalista.",
+        "Sou crítico da 'sabedoria convencional' e do poder das grandes corporações.",
+        "Escrevi 'A Sociedade Afluente' e 'O Novo Estado Industrial'.",
+        "Introduzi o conceito de 'efeito de dependência' (dependence effect)."
+      ], ref:"Institucionalismo · A Sociedade Afluente" },
+
+    // ---- INSTITUCIONALISTAS ----
+    { tema:"Economia Institucionalista", nome:"Thorstein Veblen", pistas:[
+        "Sou um economista e sociólogo norte-americano de origem norueguesa.",
+        "Sou o fundador da escola institucionalista.",
+        "Escrevi 'A Teoria da Classe Ociosa' em 1899.",
+        "Introduzi o conceito de 'consumo conspícuo'."
+      ], ref:"Institucionalismo · A Teoria da Classe Ociosa" },
+    { tema:"Economia Institucionalista", nome:"Douglass North", pistas:[
+        "Sou um economista norte-americano, ganhador do Nobel de 1993.",
+        "Sou referência em história econômica e economia institucional.",
+        "Defendo que as instituições são centrais para o desenvolvimento.",
+        "Sou autor de 'Instituições, Mudança Institucional e Desempenho Econômico'."
+      ], ref:"Nova Economia Institucional · Instituições" },
+    { tema:"Economia Institucionalista", nome:"Elinor Ostrom", pistas:[
+        "Sou uma cientista política e economista norte-americana.",
+        "Fui a primeira mulher a ganhar o Nobel de Economia, em 2009.",
+        "Estudei a governança dos bens comuns (commons).",
+        "Sou autora de 'Governando os Comuns'."
+      ], ref:"Governança dos Comuns · Nobel 2009" },
+
+    // ---- DESENVOLVIMENTO ----
+    { tema:"Desenvolvimento e Economia Política", nome:"Joseph Schumpeter", pistas:[
+        "Sou um economista austríaco, naturalizado norte-americano.",
+        "Popularizei o conceito de 'destruição criativa'.",
+        "Estudei o papel do empreendedor e da inovação no capitalismo.",
+        "Sou autor de 'Teoria do Desenvolvimento Econômico' e 'Capitalismo, Socialismo e Democracia'."
+      ], ref:"Escola Austríaca / Desenvolvimento · Destruição Criativa" },
+    { tema:"Desenvolvimento e Economia Política", nome:"Friedrich Hayek", pistas:[
+        "Sou um economista austríaco, Nobel de 1974.",
+        "Sou o principal crítico do planejamento central e do socialismo.",
+        "Defendo a ordem espontânea do mercado e o conhecimento disperso.",
+        "Sou autor de 'O Caminho da Servidão' e 'A Constituição da Liberdade'."
+      ], ref:"Escola Austríaca · O Caminho da Servidão" },
+    { tema:"Desenvolvimento e Economia Política", nome:"Albert Hirschman", pistas:[
+        "Sou um economista alemão, naturalizado norte-americano.",
+        "Sou referência em desenvolvimento e economia política.",
+        "Formulei os conceitos de 'efeito para trás' e 'efeito para frente'.",
+        "Sou autor de 'A Estratégia do Desenvolvimento Econômico' e 'Saída, Voz e Lealdade'."
+      ], ref:"Desenvolvimento · Estratégia do Desenvolvimento" },
+    { tema:"Desenvolvimento e Economia Política", nome:"Amartya Sen", pistas:[
+        "Sou um economista indiano, ganhador do Nobel de 1998.",
+        "Sou referência em economia do bem-estar e desenvolvimento humano.",
+        "Elaborei a 'abordagem das capacitações' (capabilities).",
+        "Sou autor de 'Desenvolvimento como Liberdade'."
+      ], ref:"Economia do Bem-Estar · Desenvolvimento como Liberdade" },
+    { tema:"Desenvolvimento e Economia Política", nome:"Thomas Piketty", pistas:[
+        "Sou um economista francês contemporâneo.",
+        "Sou referência no estudo da desigualdade de renda e riqueza.",
+        "Escrevi 'O Capital no Século XXI'.",
+        "Defendo a tributação progressiva sobre a riqueza."
+      ], ref:"Desigualdade · O Capital no Século XXI" },
+    { tema:"Desenvolvimento e Economia Política", nome:"Joseph Stiglitz", pistas:[
+        "Sou um economista norte-americano, Nobel de 2001.",
+        "Sou crítico do Consenso de Washington e da globalização neoliberal.",
+        "Estudei a assimetria de informação nos mercados.",
+        "Sou autor de 'O Preço da Desigualdade' e 'Globalização e seus Malefícios'."
+      ], ref:"Informação Assimétrica · Crítica à Globalização" },
+    { tema:"Desenvolvimento e Economia Política", nome:"Paul Krugman", pistas:[
+        "Sou um economista norte-americano, Nobel de 2008.",
+        "Sou referência em comércio internacional e geografia econômica.",
+        "Formulei a 'nova teoria do comércio' com retornos crescentes.",
+        "Sou colunista do New York Times e autor de 'Economia Internacional'."
+      ], ref:"Nova Teoria do Comércio · Geografia Econômica" },
+
+    // ---- BRASILEIROS ----
+    { tema:"Pensamento Econômico Brasileiro", nome:"Celso Furtado", pistas:[
+        "Sou um economista brasileiro, paraibano, da escola cepalina.",
+        "Escrevi 'Formação Econômica do Brasil' (1959) e 'O Mito do Desenvolvimento Econômico' (1974).",
+        "Fui ministro do Planejamento no governo João Goulart e da Cultura no governo Sarney.",
+        "Sou autor também de 'Criatividade e Dependência na Civilização Industrial' e 'Brasil: a construção interrompida'."
+      ], ref:"Cepalino / Desenvolvimentismo · Formação Econômica do Brasil" },
+    { tema:"Pensamento Econômico Brasileiro", nome:"Raúl Prebisch", pistas:[
+        "Sou um economista argentino, fundador da CEPAL.",
+        "Elaborei a tese 'centro-periferia' do desenvolvimento.",
+        "Defendi a industrialização por substituição de importações.",
+        "Fui secretário-executivo da CEPAL e da UNCTAD."
+      ], ref:"Cepalino · Centro-Periferia" },
+    { tema:"Pensamento Econômico Brasileiro", nome:"Maria da Conceição Tavares", pistas:[
+        "Sou uma economista brasileira, nascida em Portugal, formada na UFRJ.",
+        "Sou referência em macroeconomia, desenvolvimento e economia política no Brasil.",
+        "Escrevi 'Da Substituição de Importações ao Capitalismo Financeiro' (1972).",
+        "Sou autora também de 'Acumulação de Capital e Industrialização no Brasil' e 'Poder e Dinheiro'."
+      ], ref:"Desenvolvimentismo / Estruturalismo · UFRJ" },
+    { tema:"Pensamento Econômico Brasileiro", nome:"Luiz Carlos Bresser-Pereira", pistas:[
+        "Sou um economista brasileiro, fundador da Escola de Economia de São Paulo (FGV).",
+        "Formulei a teoria do 'novo desenvolvimentismo'.",
+        "Fui ministro da Fazenda e da Administração Pública no Brasil.",
+        "Sou autor de 'Desenvolvimento e Crise no Brasil' e 'Reflexões sobre o Novo Desenvolvimentismo'."
+      ], ref:"Novo Desenvolvimentismo · FGV-SP" },
+
+    // ---- NOBEL / CONTEMPORÂNEOS ----
+    { tema:"Prêmios Nobel e Contemporâneos", nome:"Milton Friedman", pistas:[
+        "Sou um economista norte-americano, Nobel de 1976.",
+        "Sou o principal nome do monetarismo.",
+        "Defendo o livre mercado e a minimização do Estado.",
+        "Sou autor de 'Capitalismo e Liberdade'."
+      ], ref:"Monetarismo · Escola de Chicago" },
+    { tema:"Prêmios Nobel e Contemporâneos", nome:"John Nash", pistas:[
+        "Sou um matemático e economista norte-americano, Nobel de 1994.",
+        "Sou referência na teoria dos jogos.",
+        "Formulei o conceito de 'equilíbrio de Nash'.",
+        "Minha vida foi retratada no filme 'Uma Mente Brilhante'."
+      ], ref:"Teoria dos Jogos · Equilíbrio de Nash" },
+    { tema:"Prêmios Nobel e Contemporâneos", nome:"Daniel Kahneman", pistas:[
+        "Sou um psicólogo e economista israelense-americano, Nobel de 2002.",
+        "Sou um dos fundadores da economia comportamental.",
+        "Estudei vieses cognitivos e a tomada de decisão.",
+        "Sou autor de 'Rápido e Devagar: Duas Formas de Pensar'."
+      ], ref:"Economia Comportamental · Rápido e Devagar" }
+  ]
+};
+</script>
+
+<script>
+/* =====================================================================
+   ESTADO DO JOGO
+   ===================================================================== */
+const state = {
+  banco: JSON.parse(JSON.stringify(BANCO_EXEMPLO)),
+  temaAtual: "TODOS",
+  equipes: [],
+  equipeVez: 0,
+  cartas: [],
+  indiceCarta: 0,
+  pistasReveladas: 1,   // 1ª pista já revelada
+  som: true,
+  jogoIniciado: false
+};
+
+const PALETA = ["#e04848","#2f80ed","#1f9d63","#f2a516","#8e3fd6","#e05e9c","#0d9488","#b45309"];
+
+/* =====================================================================
+   HELPERS
+   ===================================================================== */
+const $  = (s, el=document) => el.querySelector(s);
+const $$ = (s, el=document) => [...el.querySelectorAll(s)];
+
+const toast = (msg) => {
+  const t = document.createElement('div');
+  t.className = 'mp-toast'; t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 2600);
+};
+
+function anunciar(txt, cor) {
+  const a = document.createElement('div');
+  a.className = 'mp-anuncio';
+  a.innerHTML = `<div style="--c:${cor || 'var(--cor)'}">${txt}</div>`;
+  document.body.appendChild(a);
+  setTimeout(() => a.remove(), 1600);
+}
+
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+
+/* =====================================================================
+   CONFIGURAÇÃO DE EQUIPES (seletor 2–8 + nomes/cores)
+   ===================================================================== */
+function configurarEquipes() {
+  // Seletor de quantidade
+  const qtdBox = $('#qtdEq');
+  if (qtdBox) {
+    qtdBox.className = 'chips';
+    qtdBox.innerHTML = [2,3,4,5,6,7,8].map(n =>
+      `<button class="chip ${state.equipes.length===n?'on':''}" data-neq="${n}">${n} equipes</button>`
+    ).join('');
+    qtdBox.querySelectorAll('.chip').forEach(c => {
+      c.onclick = () => {
+        const n = +c.dataset.neq;
+        const atual = state.equipes.length;
+        if (n > atual) {
+          for (let i = atual; i < n; i++) {
+            state.equipes.push({
+              nome: `Equipe ${i+1}`,
+              cor: PALETA[i % PALETA.length],
+              pontos: 0
+            });
+          }
+        } else if (n < atual) {
+          state.equipes = state.equipes.slice(0, n);
+        }
+        configurarEquipes();
+      };
+    });
+  }
+
+  // Nomes e cores
+  const box = $('#cfgEq');
+  if (!state.equipes.length) {
+    state.equipes = [
+      { nome:"Equipe 1", cor:PALETA[0], pontos:0 },
+      { nome:"Equipe 2", cor:PALETA[1], pontos:0 }
+    ];
+    // re-renderiza o seletor para marcar "2 equipes"
+    if (qtdBox) {
+      qtdBox.querySelectorAll('.chip').forEach(c =>
+        c.classList.toggle('on', +c.dataset.neq === 2)
+      );
+    }
+  }
+  box.innerHTML = `<div class="mp-eqnomes" id="eqNomes"></div>`;
+  const nomes = $('#eqNomes');
+  state.equipes.forEach((eq, i) => {
+    const d = document.createElement('div');
+    d.className = 'mp-eqnome';
+    d.innerHTML = `<i style="background:${eq.cor}"></i><input value="${escapeHtml(eq.nome)}" data-i="${i}" maxlength="24">`;
+    nomes.appendChild(d);
+  });
+  nomes.addEventListener('input', (e) => {
+    const i = e.target.dataset.i;
+    if (i !== undefined) state.equipes[i].nome = e.target.value || `Equipe ${+i+1}`;
+  });
+}
+
+/* =====================================================================
+   TEMAS E QUANTIDADE
+   ===================================================================== */
+function renderTemas() {
+  const box = $('#temas');
+  box.className = 'chips temas';
+  const temasDisponiveis = ["TODOS", ...state.banco.temas];
+  box.innerHTML = temasDisponiveis.map(t => {
+    const qtd = t === "TODOS"
+      ? state.banco.cartas.length
+      : state.banco.cartas.filter(c => c.tema === t).length;
+    return `<button class="chip ${state.temaAtual===t?'on':''}" data-tema="${t}">
+      ${t === "TODOS" ? "🎲 Todos os temas" : escapeHtml(t)}
+      <small>${qtd} carta${qtd!==1?'s':''}</small>
+    </button>`;
+  }).join('');
+  box.querySelectorAll('.chip').forEach(chip => {
+    chip.onclick = () => {
+      state.temaAtual = chip.dataset.tema;
+      renderTemas();
+      renderQtd();
+    };
+  });
+}
+
+function cartasDoTema() {
+  if (state.temaAtual === "TODOS") return state.banco.cartas;
+  return state.banco.cartas.filter(c => c.tema === state.temaAtual);
+}
+
+function renderQtd() {
+  const box = $('#qtd');
+  const disp = cartasDoTema().length;
+  if (!disp) {
+    box.innerHTML = `<p class="dica">⚠️ Nenhuma carta neste tema. Selecione outro tema ou adicione cartas no editor.</p>`;
+    $('#comecar').disabled = true;
+    return;
+  }
+  const opcoes = [5, 10, 15, 20, disp]
+    .filter((v, i, arr) => v <= disp && arr.indexOf(v) === i)
+    .sort((a,b)=>a-b);
+  box.className = 'chips';
+  box.innerHTML = opcoes.map((n, i) =>
+    `<button class="chip ${i===0?'on':''}" data-qtd="${n}">${n} cartas</button>`
+  ).join('');
+  box.querySelectorAll('.chip').forEach(c => {
+    c.onclick = () => {
+      box.querySelectorAll('.chip').forEach(x => x.classList.remove('on'));
+      c.classList.add('on');
+    };
+  });
+  $('#comecar').disabled = false;
+}
+
+function qtdSelecionada() {
+  const el = $('#qtd .chip.on');
+  return el ? +el.dataset.qtd : 5;
+}
+
+/* =====================================================================
+   INÍCIO DO JOGO
+   ===================================================================== */
+function iniciarJogo() {
+  const disp = cartasDoTema();
+  if (!disp.length) { toast("Nenhuma carta disponível."); return; }
+  if (!state.equipes.length) { toast("Configure ao menos uma equipe."); return; }
+  const n = Math.min(qtdSelecionada(), disp.length);
+  state.cartas = shuffle([...disp]).slice(0, n);
+  state.indiceCarta = 0;
+  state.pistasReveladas = 1;   // <<< 1ª pista já revelada
+  state.equipeVez = 0;
+  state.equipes.forEach(e => e.pontos = 0);
+  state.jogoIniciado = true;
+  $('#capa').classList.add('oculto');
+  $('#jogo').classList.remove('oculto');
+  renderPlacar();
+  renderCarta();
+}
+
+/* =====================================================================
+   PLACAR
+   ===================================================================== */
+function renderPlacar() {
+  const box = $('#placar');
+  box.innerHTML = state.equipes.map((eq, i) => {
+    const vez = i === state.equipeVez && state.jogoIniciado;
+    return `<div class="eq ${vez?'vez':''}" style="--c:${eq.cor}">
+      <div class="nome">${escapeHtml(eq.nome)}</div>
+      <div class="pts">${eq.pontos}</div>
+      <div class="aj">
+        <button data-menos="${i}" title="−1">−</button>
+        <button data-mais="${i}" title="+1">+</button>
+      </div>
+    </div>`;
+  }).join('');
+  box.querySelectorAll('[data-mais]').forEach(b => b.onclick = () => {
+    state.equipes[+b.dataset.mais].pontos++; renderPlacar();
+  });
+  box.querySelectorAll('[data-menos]').forEach(b => b.onclick = () => {
+    const i = +b.dataset.menos;
+    state.equipes[i].pontos = Math.max(0, state.equipes[i].pontos - 1);
+    renderPlacar();
+  });
+}
+
+/* =====================================================================
+   CARTA (lógica corrigida de pistas/pontuação)
+   ===================================================================== */
+function renderCarta() {
+  const carta = state.cartas[state.indiceCarta];
+  if (!carta) { fimDeJogo(); return; }
+  $('#revela').innerHTML = '';
+
+  // pistasReveladas = 1 → vale 10 (só a 1ª pista)
+  // pistasReveladas = 2 → vale 8
+  // pistasReveladas = 3 → vale 6
+  // pistasReveladas = 4 → vale 4
+  const valor = Math.max(12 - state.pistasReveladas * 2, 2);
+  $('#vale').textContent = `Vale ${valor} ponto${valor>1?'s':''}`;
+
+  const ul = $('#pistas');
+  ul.innerHTML = carta.pistas.map((p, i) => {
+    if (i < state.pistasReveladas) {
+      return `<li class="${i===state.pistasReveladas-1?'nova':''}"><b>${i+1}</b><span>${escapeHtml(p)}</span></li>`;
+    }
+    return `<li class="fechada"><b>?</b><span>Pista oculta</span></li>`;
+  }).join('');
+
+  const acoes = $('#acoes');
+  const eqVez = state.equipes[state.equipeVez];
+  const podeRevelar = state.pistasReveladas < carta.pistas.length;
+  const proximoValor = Math.max(12 - (state.pistasReveladas + 1) * 2, 2);
+
+  acoes.innerHTML = `
+    <div class="card" style="margin:0;padding:14px">
+      <div class="prog">Carta ${state.indiceCarta+1} de ${state.cartas.length} · Vez: <b style="color:${eqVez.cor}">${escapeHtml(eqVez.nome)}</b></div>
+      ${podeRevelar
+        ? `<button class="btn btn-aviso btn-grande" id="btnPista" style="margin-top:10px">🔍 Revelar ${state.pistasReveladas+1}ª pista (vale ${proximoValor} pts)</button>`
+        : `<button class="btn btn-ok btn-grande" id="btnRevelar" style="margin-top:10px">👀 Revelar resposta</button>`}
+      <button class="btn btn-ok" id="btnAcertou" style="margin-top:8px">✅ ${escapeHtml(eqVez.nome)} acertou (+${valor})</button>
+      <button class="btn btn-erro" id="btnErrou" style="margin-top:8px">❌ ${escapeHtml(eqVez.nome)} errou (passa a vez)</button>
+      <button class="btn btn-link" id="btnProxima" style="margin-top:8px">⏭️ Pular carta</button>
+    </div>`;
+
+  if (podeRevelar) {
+    $('#btnPista').onclick = () => {
+      state.pistasReveladas++;
+      renderCarta();
+      renderPlacar();
+    };
+  } else {
+    $('#btnRevelar').onclick = () => revelarResposta();
+  }
+  $('#btnAcertou').onclick = () => pontuarAcerto(valor);
+  $('#btnErrou').onclick = () => passarVez();
+  $('#btnProxima').onclick = () => proximaCarta();
+}
+
+function revelarResposta() {
+  const carta = state.cartas[state.indiceCarta];
+  $('#revela').innerHTML = `<div class="r">${escapeHtml(carta.nome)}</div>
+    <div style="color:#ffd166;font-weight:700;margin-top:4px">${escapeHtml(carta.ref || '')}</div>`;
+  $('#acoes').innerHTML = `<div class="card" style="margin:0;padding:14px">
+    <div class="prog">Resposta revelada!</div>
+    <button class="btn btn-cor btn-grande" id="btnProxima" style="margin-top:10px">⏭️ Próxima carta</button>
+  </div>`;
+  $('#btnProxima').onclick = () => proximaCarta();
+}
+
+function pontuarAcerto(valor) {
+  state.equipes[state.equipeVez].pontos += valor;
+  anunciar(`+${valor}`, state.equipes[state.equipeVez].cor);
+  proximaCarta();
+}
+
+function passarVez() {
+  state.pistasReveladas = Math.min(
+    state.pistasReveladas + 1,
+    state.cartas[state.indiceCarta].pistas.length
+  );
+  state.equipeVez = (state.equipeVez + 1) % state.equipes.length;
+  renderPlacar();
+  renderCarta();
+}
+
+function proximaCarta() {
+  state.indiceCarta++;
+  state.pistasReveladas = 1;   // <<< sempre começa com 1 pista revelada
+  state.equipeVez = (state.equipeVez + 1) % state.equipes.length;
+  if (state.indiceCarta >= state.cartas.length) {
+    fimDeJogo();
+  } else {
+    renderPlacar();
+    renderCarta();
+  }
+}
+
+function fimDeJogo() {
+  const ordenado = [...state.equipes].sort((a,b) => b.pontos - a.pontos);
+  const vencedor = ordenado[0];
+  $('#jogo').innerHTML = `
+    <div class="card" style="max-width:640px;margin:40px auto;text-align:center">
+      <h2 style="font:900 2rem var(--titulo);color:var(--cor)">🏆 Fim de jogo!</h2>
+      <div style="font-size:1.6rem;margin:14px 0">
+        <span style="color:${vencedor.cor};font-weight:900">${escapeHtml(vencedor.nome)}</span> venceu com
+        <b>${vencedor.pontos}</b> ponto${vencedor.pontos!==1?'s':''}!
+      </div>
+      <ul class="ranking">
+        ${ordenado.map((e,i) => `<li><span>${i+1}º · <span style="color:${e.cor};font-weight:800">${escapeHtml(e.nome)}</span></span><span>${e.pontos}</span></li>`).join('')}
+      </ul>
+      <div class="linha-botoes" style="justify-content:center">
+        <button class="btn btn-cor btn-grande" onclick="location.reload()">🔄 Jogar de novo</button>
+      </div>
+    </div>`;
+}
+
+/* =====================================================================
+   EDITOR
+   ===================================================================== */
+function abrirEditor() {
+  $('#editor').classList.remove('oculto');
+  $('#edTema').innerHTML = state.banco.temas.map(t => `<option>${escapeHtml(t)}</option>`).join('');
+  renderEditor();
+}
+function fecharEditor() { $('#editor').classList.add('oculto'); }
+
+function renderEditor() {
+  const tema = $('#edTema').value || state.banco.temas[0];
+  const cartas = state.banco.cartas.filter(c => c.tema === tema);
+  const box = $('#edLista');
+  if (!cartas.length) {
+    box.innerHTML = `<p class="dica">Nenhuma carta neste tema. Clique em "Nova carta".</p>`;
+    return;
+  }
+  box.innerHTML = cartas.map((c, i) => {
+    const idx = state.banco.cartas.indexOf(c);
+    return `<div class="mp-ed-item" data-idx="${idx}">
+      <div class="num">${i+1}</div>
+      <div>
+        <label>Nome (resposta)</label>
+        <input class="campo" data-campo="nome" value="${escapeHtml(c.nome)}">
+        <label style="margin-top:8px">Corrente / obra de referência</label>
+        <input class="campo" data-campo="ref" value="${escapeHtml(c.ref||'')}">
+        <label style="margin-top:8px">Pistas (uma por linha, 4 no total)</label>
+        <textarea class="campo" data-campo="pistas" rows="4">${escapeHtml(c.pistas.join('\n'))}</textarea>
+      </div>
+      <div class="mp-ed-acts">
+        <button data-del="${idx}" title="Excluir">🗑️</button>
+      </div>
+    </div>`;
+  }).join('');
+
+  box.querySelectorAll('.mp-ed-item').forEach(item => {
+    const idx = +item.dataset.idx;
+    item.querySelectorAll('[data-campo]').forEach(inp => {
+      inp.onchange = () => {
+        const campo = inp.dataset.campo;
+        if (campo === 'pistas') {
+          state.banco.cartas[idx].pistas = inp.value.split('\n').map(s=>s.trim()).filter(Boolean).slice(0,4);
+        } else {
+          state.banco.cartas[idx][campo] = inp.value;
+        }
+      };
+    });
+    const del = item.querySelector('[data-del]');
+    if (del) del.onclick = () => {
+      if (confirm("Excluir esta carta?")) {
+        state.banco.cartas.splice(idx, 1);
+        renderEditor();
+      }
+    };
+  });
+}
+
+/* =====================================================================
+   PERSISTÊNCIA
+   ===================================================================== */
+function salvarBanco() {
+  try {
+    localStorage.setItem('mp_economia_banco', JSON.stringify(state.banco));
+    toast("💾 Banco salvo no navegador!");
+  } catch (e) { toast("Não foi possível salvar."); }
+}
+function carregarBanco() {
+  try {
+    const raw = localStorage.getItem('mp_economia_banco');
+    if (raw) state.banco = JSON.parse(raw);
+  } catch (e) {}
+}
+
+/* =====================================================================
+   IMPRESSÃO
+   ===================================================================== */
+function imprimirCartas() {
+  const out = $('#mp-print');
+  const cartas = cartasDoTema();
+  out.innerHTML = cartas.map(c => `
+    <div class="quebra">
+      <h2 style="font-size:2rem;margin:0 0 8px">${escapeHtml(c.nome)}</h2>
+      <div style="color:#666;margin-bottom:14px">${escapeHtml(c.ref||'')}</div>
+      <ol>
+        ${c.pistas.map(p => `<li style="margin:8px 0;font-size:1.1rem">${escapeHtml(p)}</li>`).join('')}
+      </ol>
+    </div>`).join('');
+  window.print();
+}
+
+/* =====================================================================
+   EVENTOS
+   ===================================================================== */
+function bind() {
+  $('#comecar').onclick = iniciarJogo;
+  $('#editarCapa').onclick = abrirEditor;
+  $('#btnEditar').onclick = abrirEditor;
+  $('#btnImprimir').onclick = imprimirCartas;
+  $('#btnSom').onclick = (e) => {
+    state.som = !state.som;
+    e.currentTarget.classList.toggle('off', !state.som);
+    toast(state.som ? "Som ligado" : "Som desligado");
+  };
+  $('#edFechar').onclick = fecharEditor;
+  $('#edSalvar').onclick = salvarBanco;
+  $('#edTema').onchange = renderEditor;
+  $('#edNovoTema').onclick = () => {
+    const nome = prompt("Nome do novo tema:");
+    if (nome && !state.banco.temas.includes(nome)) {
+      state.banco.temas.push(nome);
+      $('#edTema').innerHTML = state.banco.temas.map(t => `<option>${escapeHtml(t)}</option>`).join('');
+      $('#edTema').value = nome;
+      renderEditor();
+    }
+  };
+  $('#edNovaCarta').onclick = () => {
+    const tema = $('#edTema').value;
+    state.banco.cartas.push({
+      tema,
+      nome: "Novo pensador",
+      pistas: ["Pista 1", "Pista 2", "Pista 3", "Pista 4"],
+      ref: ""
+    });
+    renderEditor();
+  };
+  $('#edResetar').onclick = () => {
+    if (confirm("Restaurar o banco de exemplo? Suas alterações serão perdidas.")) {
+      state.banco = JSON.parse(JSON.stringify(BANCO_EXEMPLO));
+      $('#edTema').innerHTML = state.banco.temas.map(t => `<option>${escapeHtml(t)}</option>`).join('');
+      renderEditor();
+      renderTemas();
+      renderQtd();
+    }
+  };
+  $('#edExportar').onclick = () => {
+    const blob = new Blob([JSON.stringify(state.banco, null, 2)], {type:'application/json'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'banco-economia.json';
+    a.click();
+  };
+  $('#edImportar').onclick = () => $('#edFile').click();
+  $('#edFile').onchange = (e) => {
+    const f = e.target.files[0];
+    if (!f) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      try {
+        const data = JSON.parse(reader.result);
+        if (data.cartas && data.temas) {
+          state.banco = data;
+          $('#edTema').innerHTML = state.banco.temas.map(t => `<option>${escapeHtml(t)}</option>`).join('');
+          renderEditor();
+          renderTemas();
+          renderQtd();
+          toast("✅ Banco importado!");
+        }
+      } catch (err) { toast("Arquivo inválido."); }
+    };
+    reader.readAsText(f);
+  };
+}
+
+/* =====================================================================
+   BOOT
+   ===================================================================== */
+carregarBanco();
+bind();
+configurarEquipes();
+renderTemas();
+renderQtd();
+</script>
+
+</body>
+</html>
